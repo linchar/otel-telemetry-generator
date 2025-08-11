@@ -90,10 +90,18 @@ public class MetricGeneratorThread implements Runnable {
                                 for (String metricName : applicableMetrics) {
                                         MetricDefinition metricDef = metrics.get(metricName);
                                         // Generate a new metric builder for this resource
-                                        Metric.Builder partialMetric = getMetric(metricDef);
-                                        List<KeyValue> resourceAttrs = GeneratorUtils.getResourceAttributes(
-                                                        metricDef.getCopyResourceAttributes(), reportingResource);
-                                        otelMetrics.add(getMetricWithResourceAttributes(partialMetric, resourceAttrs));
+                                        try {
+                                                Metric.Builder partialMetric = getMetric(metricDef);
+                                                List<KeyValue> resourceAttrs = GeneratorUtils.getResourceAttributes(
+                                                                metricDef.getCopyResourceAttributes(),
+                                                                reportingResource);
+                                                otelMetrics.add(getMetricWithResourceAttributes(partialMetric,
+                                                                resourceAttrs));
+                                        } catch (Exception e) {
+                                                log.error("Error generating metric '{}' for resource '{}': {}",
+                                                                metricName, reportingResource.getAttributes(0),
+                                                                e.getMessage(), e);
+                                        }
                                 }
                                 if (!otelMetrics.isEmpty()) {
                                         resourceMetric = ResourceMetrics.newBuilder()
