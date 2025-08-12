@@ -82,8 +82,8 @@ public class MetricGeneratorThread implements Runnable {
 
                         Pair<List<Resource>, List<Set<String>>> reportingResourcesAndMetrics = getReportingResources();
                         List<Resource> reportingResources = reportingResourcesAndMetrics.getLeft();
-            log.debug(requestID + ": Preparing " + reportingResources.size() + " resource metric packets for " + groupKey);
-            for (int resourceIndex=0; resourceIndex<reportingResources.size(); resourceIndex++) {
+                        log.debug(requestID + ": Preparing " + reportingResources.size() + " resource metric packets for " + groupKey);
+                        for (int resourceIndex=0; resourceIndex<reportingResources.size(); resourceIndex++) {
                                 Resource reportingResource = reportingResources.get(resourceIndex);
                                 Set<String> applicableMetrics = reportingResourcesAndMetrics.getRight().get(resourceIndex);
                                 List<Metric> otelMetrics = new ArrayList<>();
