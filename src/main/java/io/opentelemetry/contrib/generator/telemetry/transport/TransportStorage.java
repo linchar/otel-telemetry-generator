@@ -16,7 +16,7 @@
 
 package io.opentelemetry.contrib.generator.telemetry.transport;
 
-import com.google.protobuf.GeneratedMessageV3;
+import com.google.protobuf.GeneratedMessage;
 import io.opentelemetry.proto.collector.logs.v1.ExportLogsServiceRequest;
 import io.opentelemetry.proto.collector.metrics.v1.ExportMetricsServiceRequest;
 import io.opentelemetry.proto.collector.trace.v1.ExportTraceServiceRequest;
@@ -54,7 +54,7 @@ public class TransportStorage {
         storedTracesPayloads = new ConcurrentHashMap<>();
     }
 
-    public void store(String resourceType, GeneratedMessageV3 payload, boolean isSuccess) {
+    public void store(String resourceType, GeneratedMessage payload, boolean isSuccess) {
         if (payload instanceof ExportMetricsServiceRequest) {
             metricsResponses.putIfAbsent(resourceType, new ArrayList<>());
             storedMetricsPayloads.putIfAbsent(resourceType, new ArrayList<>());
@@ -68,7 +68,7 @@ public class TransportStorage {
         }
     }
 
-    public void store(String logName, String resourceType, GeneratedMessageV3 payload, boolean isSuccess){
+    public void store(String logName, String resourceType, GeneratedMessage payload, boolean isSuccess){
         if (payload instanceof ExportLogsServiceRequest) {
             logsResponses.putIfAbsent(logName, new HashMap<>());
             storedLogsPayloads.putIfAbsent(logName, new HashMap<>());

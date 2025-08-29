@@ -17,7 +17,7 @@
 package io.opentelemetry.contrib.generator.telemetry.helpers;
 
 import io.opentelemetry.contrib.generator.telemetry.transport.PayloadHandler;
-import com.google.protobuf.GeneratedMessageV3;
+import com.google.protobuf.GeneratedMessage;
 import io.opentelemetry.proto.collector.logs.v1.ExportLogsServiceRequest;
 import io.opentelemetry.proto.collector.metrics.v1.ExportMetricsServiceRequest;
 import io.opentelemetry.proto.collector.trace.v1.ExportTraceServiceRequest;
@@ -54,7 +54,7 @@ public class TestPayloadHandler implements PayloadHandler {
     }
 
     @Override
-    public boolean postPayload(GeneratedMessageV3 message) {
+    public boolean postPayload(GeneratedMessage message) {
         if (message instanceof ExportMetricsServiceRequest payload) {
             metricPayloads.add(payload);
             int resourceMetricsCount = payload.getResourceMetricsCount();

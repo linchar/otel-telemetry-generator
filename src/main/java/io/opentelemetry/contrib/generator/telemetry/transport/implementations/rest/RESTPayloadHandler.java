@@ -18,7 +18,7 @@ package io.opentelemetry.contrib.generator.telemetry.transport.implementations.r
 
 import io.opentelemetry.contrib.generator.telemetry.transport.PayloadHandler;
 import io.opentelemetry.contrib.generator.telemetry.transport.auth.AuthHandler;
-import com.google.protobuf.GeneratedMessageV3;
+import com.google.protobuf.GeneratedMessage;
 import io.opentelemetry.contrib.generator.telemetry.transport.auth.NoAuthHandler;
 import io.opentelemetry.contrib.generator.telemetry.transport.implementations.HTTPClient;
 import io.opentelemetry.proto.collector.logs.v1.ExportLogsServiceRequest;
@@ -59,7 +59,7 @@ public class RESTPayloadHandler implements PayloadHandler {
     }
 
     @Override
-    public boolean postPayload(GeneratedMessageV3 message) {
+    public boolean postPayload(GeneratedMessage message) {
         if (StringUtils.defaultString(ENDPOINT_URL).isBlank() || authHandler == null) {
             log.error("Missing URL or access token");
             return false;

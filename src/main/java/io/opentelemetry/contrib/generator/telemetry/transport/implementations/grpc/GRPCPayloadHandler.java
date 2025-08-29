@@ -18,7 +18,7 @@ package io.opentelemetry.contrib.generator.telemetry.transport.implementations.g
 
 import io.opentelemetry.contrib.generator.telemetry.transport.PayloadHandler;
 import io.opentelemetry.contrib.generator.telemetry.transport.auth.AuthHandler;
-import com.google.protobuf.GeneratedMessageV3;
+import com.google.protobuf.GeneratedMessage;
 import io.grpc.*;
 import io.opentelemetry.contrib.generator.telemetry.transport.auth.NoAuthHandler;
 import io.opentelemetry.proto.collector.logs.v1.ExportLogsServiceRequest;
@@ -56,7 +56,7 @@ public class GRPCPayloadHandler implements PayloadHandler {
     }
 
     @Override
-    public boolean postPayload(GeneratedMessageV3 message) {
+    public boolean postPayload(GeneratedMessage message) {
         initClient();
         if (StringUtils.defaultString(HOST).isBlank() || gRPCPORT <= 0 || authHandler == null) {
             log.error("Missing HOST or PORT or AuthHandler");
